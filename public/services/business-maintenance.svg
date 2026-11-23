@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#FAFAF7" />
+  
+  <!-- Browser Window -->
+  <rect x="180" y="100" width="440" height="400" rx="8" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2" />
+  <rect x="180" y="100" width="440" height="40" rx="8" fill="#FAFAF7" stroke="#1E40AF" stroke-width="1.5" />
+  
+  <!-- Browser Dots -->
+  <circle cx="205" cy="120" r="4" fill="#1E40AF" />
+  <circle cx="225" cy="120" r="4" fill="#1E40AF" />
+  <circle cx="245" cy="120" r="4" fill="#1E40AF" />
+  <rect x="280" y="112" width="220" height="16" rx="3" fill="#FFFFFF" stroke="#1E40AF" stroke-width="1" />
+  
+  <!-- Checklist on Left -->
+  <g transform="translate(220, 180)">
+    <!-- Item 1 with Check -->
+    <rect x="0" y="0" width="18" height="18" rx="2" fill="#FFFFFF" stroke="#1E40AF" stroke-width="1.5" />
+    <polyline points="4,9 8,13 14,5" fill="none" stroke="#1E40AF" stroke-width="2" />
+    <line x1="30" y1="10" x2="160" y2="10" stroke="#1E40AF" stroke-width="2" />
+    
+    <!-- Item 2 with Check -->
+    <rect x="0" y="45" width="18" height="18" rx="2" fill="#FFFFFF" stroke="#1E40AF" stroke-width="1.5" />
+    <polyline points="4,54 8,58 14,50" fill="none" stroke="#1E40AF" stroke-width="2" />
+    <line x1="30" y1="55" x2="180" y2="55" stroke="#1E40AF" stroke-width="2" />
+    
+    <!-- Item 3 with Check -->
+    <rect x="0" y="90" width="18" height="18" rx="2" fill="#FFFFFF" stroke="#1E40AF" stroke-width="1.5" />
+    <polyline points="4,99 8,103 14,95" fill="none" stroke="#1E40AF" stroke-width="2" />
+    <line x1="30" y1="100" x2="150" y2="100" stroke="#1E40AF" stroke-width="2" />
+    
+    <!-- Item 4 with Check -->
+    <rect x="0" y="135" width="18" height="18" rx="2" fill="#FFFFFF" stroke="#1E40AF" stroke-width="1.5" />
+    <polyline points="4,144 8,148 14,140" fill="none" stroke="#1E40AF" stroke-width="2" />
+    <line x1="30" y1="145" x2="170" y2="145" stroke="#1E40AF" stroke-width="2" />
+  </g>
+  
+  <!-- Maintenance Wrench Tool (Right) -->
+  <g transform="translate(480, 240) rotate(-25)">
+    <!-- Wrench Head 1 -->
+    <path d="M 0 0 C 15 -20, 45 -20, 60 0 C 50 15, 50 25, 60 40 L 45 40 C 35 25, 25 25, 15 40 Z" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2" />
+    <!-- Handle -->
+    <rect x="22" y="35" width="16" height="110" rx="3" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2" />
+    <!-- Small Amber Accent on Wrench Grip Band -->
+    <rect x="22" y="70" width="16" height="20" fill="#F59E0B" stroke="#F59E0B" stroke-width="1" />
+    <!-- Wrench Head 2 -->
+    <circle cx="30" cy="155" r="16" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2" />
+    <circle cx="30" cy="155" r="8" fill="#FAFAF7" stroke="#1E40AF" stroke-width="1.5" />
+  </g>
+</svg>

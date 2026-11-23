@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#FAFAF7" />
+  
+  <!-- Server Rack Unit -->
+  <rect x="310" y="100" width="180" height="150" rx="6" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2" />
+  <line x1="330" y1="140" x2="470" y2="140" stroke="#1E40AF" stroke-width="2" />
+  <line x1="330" y1="180" x2="470" y2="180" stroke="#1E40AF" stroke-width="2" />
+  <circle cx="340" cy="120" r="4" fill="#1E40AF" />
+  <circle cx="360" cy="120" r="4" fill="#1E40AF" />
+  <circle cx="340" cy="160" r="4" fill="#1E40AF" />
+  <circle cx="360" cy="160" r="4" fill="#1E40AF" />
+  <circle cx="340" cy="200" r="4" fill="#1E40AF" />
+  <circle cx="360" cy="200" r="4" fill="#1E40AF" />
+  <!-- Small Amber Accent on server status light -->
+  <circle cx="455" cy="120" r="4" fill="#F59E0B" />
+  
+  <!-- Connecting Lines -->
+  <path d="M 400 250 L 400 330 L 260 330 L 260 380" fill="none" stroke="#1E40AF" stroke-width="2" stroke-dasharray="6 4" />
+  <path d="M 400 330 L 540 330 L 540 400" fill="none" stroke="#1E40AF" stroke-width="2" stroke-dasharray="6 4" />
+  
+  <!-- Laptop Device (Left) -->
+  <rect x="180" y="380" width="160" height="100" rx="4" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2" />
+  <path d="M 160 480 L 360 480 L 340 496 L 180 496 Z" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2" />
+  <rect x="200" y="400" width="120" height="60" fill="#FAFAF7" stroke="#1E40AF" stroke-width="1.5" />
+  <line x1="215" y1="420" x2="305" y2="420" stroke="#1E40AF" stroke-width="1.5" />
+  <line x1="215" y1="435" x2="280" y2="435" stroke="#1E40AF" stroke-width="1.5" />
+  
+  <!-- Phone Device (Right) -->
+  <rect x="500" y="400" width="80" height="135" rx="8" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2" />
+  <rect x="510" y="420" width="60" height="95" rx="2" fill="#FAFAF7" stroke="#1E40AF" stroke-width="1.5" />
+  <circle cx="540" cy="410" r="2" fill="#1E40AF" />
+  <line x1="520" y1="440" x2="560" y2="440" stroke="#1E40AF" stroke-width="1.5" />
+  <line x1="520" y1="455" x2="550" y2="455" stroke="#1E40AF" stroke-width="1.5" />
+</svg>

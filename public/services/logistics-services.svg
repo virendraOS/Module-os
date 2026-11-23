@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#FAFAF7" />
+  
+  <!-- Waypoint A (Origin) -->
+  <circle cx="150" cy="300" r="10" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2" />
+  <circle cx="150" cy="300" r="4" fill="#1E40AF" />
+  
+  <!-- Route Line connecting points -->
+  <path d="M 160 300 C 260 220, 360 380, 480 280 L 640 280" fill="none" stroke="#1E40AF" stroke-width="2" stroke-dasharray="6 4" />
+  
+  <!-- Waypoint B (Destination) with Amber Accent pin -->
+  <circle cx="650" cy="280" r="12" fill="#F59E0B" stroke="#F59E0B" stroke-width="1.5" />
+  <circle cx="650" cy="280" r="4" fill="#FFFFFF" />
+  
+  <!-- Delivery Truck on route -->
+  <g transform="translate(320, 240)">
+    <!-- Cargo Box -->
+    <rect x="0" y="0" width="90" height="55" rx="3" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2" />
+    <line x1="25" y1="0" x2="25" y2="55" stroke="#1E40AF" stroke-width="1.5" />
+    <!-- Cab -->
+    <path d="M 90 20 L 115 20 L 125 38 L 125 55 L 90 55 Z" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2" />
+    <!-- Window -->
+    <polygon points="95,25 110,25 118,36 95,36" fill="#FAFAF7" stroke="#1E40AF" stroke-width="1.5" />
+    <!-- Wheels -->
+    <circle cx="25" cy="57" r="10" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2" />
+    <circle cx="25" cy="57" r="4" fill="#1E40AF" />
+    <circle cx="105" cy="57" r="10" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2" />
+    <circle cx="105" cy="57" r="4" fill="#1E40AF" />
+  </g>
+  
+  <!-- Tracking Status Card (Floating Top Right) -->
+  <rect x="460" y="100" width="220" height="110" rx="6" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2" />
+  <line x1="480" y1="125" x2="560" y2="125" stroke="#1E40AF" stroke-width="2" />
+  <line x1="480" y1="145" x2="640" y2="145" stroke="#1E40AF" stroke-width="1.5" />
+  <line x1="480" y1="165" x2="590" y2="165" stroke="#1E40AF" stroke-width="1.5" />
+  <circle cx="645" cy="125" r="5" fill="#1E40AF" />
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <rect width="800" height="600" fill="#FAFAF7" />
+  
+  <!-- Stacked Database Table 1 (Back) -->
+  <rect x="250" y="110" width="300" height="150" rx="4" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2" />
+  <rect x="250" y="110" width="300" height="30" rx="4" fill="#FAFAF7" stroke="#1E40AF" stroke-width="1.5" />
+  <line x1="250" y1="180" x2="550" y2="180" stroke="#1E40AF" stroke-width="1" stroke-dasharray="3 3" />
+  <line x1="250" y1="220" x2="550" y2="220" stroke="#1E40AF" stroke-width="1" stroke-dasharray="3 3" />
+  
+  <!-- Stacked Database Table 2 (Middle) -->
+  <rect x="230" y="210" width="340" height="160" rx="4" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2" />
+  <rect x="230" y="210" width="340" height="35" rx="4" fill="#FAFAF7" stroke="#1E40AF" stroke-width="1.5" />
+  <line x1="230" y1="285" x2="570" y2="285" stroke="#1E40AF" stroke-width="1" stroke-dasharray="3 3" />
+  <line x1="230" y1="330" x2="570" y2="330" stroke="#1E40AF" stroke-width="1" stroke-dasharray="3 3" />
+  
+  <!-- Foreground Database Table 3 (Front, Focal) -->
+  <rect x="200" y="310" width="400" height="190" rx="6" fill="#FFFFFF" stroke="#1E40AF" stroke-width="2" />
+  <rect x="200" y="310" width="400" height="40" rx="6" fill="#FAFAF7" stroke="#1E40AF" stroke-width="1.5" />
+  
+  <!-- Table Header Columns -->
+  <line x1="230" y1="330" x2="300" y2="330" stroke="#1E40AF" stroke-width="2" />
+  <line x1="340" y1="330" x2="430" y2="330" stroke="#1E40AF" stroke-width="2" />
+  <line x1="470" y1="330" x2="550" y2="330" stroke="#1E40AF" stroke-width="2" />
+  
+  <!-- Rows -->
+  <line x1="200" y1="390" x2="600" y2="390" stroke="#1E40AF" stroke-width="1" />
+  <line x1="230" y1="375" x2="280" y2="375" stroke="#1E40AF" stroke-width="1.5" />
+  <line x1="340" y1="375" x2="440" y2="375" stroke="#1E40AF" stroke-width="1.5" />
+  <line x1="470" y1="375" x2="560" y2="375" stroke="#1E40AF" stroke-width="1.5" />
+  
+  <line x1="200" y1="440" x2="600" y2="440" stroke="#1E40AF" stroke-width="1" />
+  <!-- Amber Accent on highlighted primary key / record -->
+  <circle cx="215" cy="415" r="4" fill="#F59E0B" />
+  <line x1="230" y1="415" x2="290" y2="415" stroke="#1E40AF" stroke-width="1.5" />
+  <line x1="340" y1="415" x2="420" y2="415" stroke="#1E40AF" stroke-width="1.5" />
+  <line x1="470" y1="415" x2="530" y2="415" stroke="#1E40AF" stroke-width="1.5" />
+  
+  <!-- Last Row -->
+  <line x1="230" y1="465" x2="275" y2="465" stroke="#1E40AF" stroke-width="1.5" />
+  <line x1="340" y1="465" x2="410" y2="465" stroke="#1E40AF" stroke-width="1.5" />
+  <line x1="470" y1="465" x2="540" y2="465" stroke="#1E40AF" stroke-width="1.5" />
+</svg>

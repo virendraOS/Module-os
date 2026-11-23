@@ -1,0 +1,190 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Authenticated user account profile for Xelvion Innova Tech.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase Auth UID matching the document ID.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Verified email address from Google Sign-In.",
+          "minLength": 3,
+          "maxLength": 160
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User full name.",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "Profile avatar URL.",
+          "maxLength": 500
+        },
+        "companyName": {
+          "type": "string",
+          "description": "Optional business or organization name.",
+          "maxLength": 100
+        },
+        "phone": {
+          "type": "string",
+          "description": "Optional contact phone number.",
+          "maxLength": 20,
+          "pattern": "^[0-9+\\-\\s()]*$"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when account was created."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when profile was last updated."
+        }
+      },
+      "required": ["uid", "email", "displayName", "createdAt", "updatedAt"]
+    },
+    "UserConsultation": {
+      "title": "UserConsultation",
+      "description": "Saved consultation booking record linked to an authenticated user.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase Auth UID of the submitting owner.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "referenceId": {
+          "type": "string",
+          "description": "Consultation booking pass ID matching document ID.",
+          "minLength": 3,
+          "maxLength": 64,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "serviceTitle": {
+          "type": "string",
+          "description": "Selected official service track.",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "callbackDay": {
+          "type": "string",
+          "description": "Preferred callback day.",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "callbackSlot": {
+          "type": "string",
+          "description": "Preferred callback window in IST.",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        "phone": {
+          "type": "string",
+          "description": "Callback phone number.",
+          "minLength": 7,
+          "maxLength": 25,
+          "pattern": "^[0-9+\\-\\s()]*$"
+        },
+        "message": {
+          "type": "string",
+          "description": "Consultation requirement brief.",
+          "minLength": 1,
+          "maxLength": 1500
+        },
+        "status": {
+          "type": "string",
+          "description": "Current consultation progress status.",
+          "enum": ["New", "Contacted", "Won", "Lost"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the consultation was submitted."
+        }
+      },
+      "required": [
+        "uid",
+        "referenceId",
+        "serviceTitle",
+        "callbackDay",
+        "callbackSlot",
+        "phone",
+        "message",
+        "status",
+        "createdAt"
+      ]
+    },
+    "ServiceBookmark": {
+      "title": "ServiceBookmark",
+      "description": "Service track shortlisted by a signed-in user for upcoming consultation.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase Auth UID of the owner.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "serviceId": {
+          "type": "string",
+          "description": "Official service identifier matching the document ID.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "serviceTitle": {
+          "type": "string",
+          "description": "Display title of the shortlisted service.",
+          "minLength": 2,
+          "maxLength": 100
+        },
+        "category": {
+          "type": "string",
+          "description": "Service category.",
+          "minLength": 2,
+          "maxLength": 80
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when service was bookmarked."
+        }
+      },
+      "required": ["uid", "serviceId", "serviceTitle", "category", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/UserProfile"
+      },
+      "description": "Private user account profiles accessible only to the profile owner or verified admin."
+    },
+    "/users/{userId}/consultations/{consultationId}": {
+      "schema": {
+        "$ref": "#/entities/UserConsultation"
+      },
+      "description": "User consultation history synced alongside PostgreSQL."
+    },
+    "/users/{userId}/bookmarks/{serviceId}": {
+      "schema": {
+        "$ref": "#/entities/ServiceBookmark"
+      },
+      "description": "Services bookmarked by an authenticated user."
+    }
+  }
+}

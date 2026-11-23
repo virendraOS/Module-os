@@ -1,0 +1,198 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedUser() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isVerifiedUser() && request.auth.token.email in ['skylarkvirendra@gmail.com', 'virendrasinghrawaat@gmail.com'];
+    }
+
+    function hasParentUserDoc(userId) {
+      return exists(/databases/$(database)/documents/users/$(userId));
+    }
+
+    function isValidUserProfile(data, userId) {
+      return data.keys().hasAll(['uid', 'email', 'displayName', 'createdAt', 'updatedAt'])
+        && data.keys().hasOnly(['uid', 'email', 'displayName', 'photoURL', 'companyName', 'phone', 'createdAt', 'updatedAt'])
+        && data.uid is string
+        && isValidId(data.uid)
+        && data.uid == userId
+        && data.uid == request.auth.uid
+        && data.email is string
+        && data.email.size() >= 3
+        && data.email.size() <= 160
+        && data.email == request.auth.token.email
+        && data.displayName is string
+        && data.displayName.size() >= 1
+        && data.displayName.size() <= 80
+        && (!('photoURL' in data) || (data.photoURL is string && data.photoURL.size() <= 500))
+        && (!('companyName' in data) || (data.companyName is string && data.companyName.size() <= 100))
+        && (!('phone' in data) || (data.phone is string && data.phone.size() <= 20 && data.phone.matches('^[0-9+\\-\\s()]*$')))
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidUserConsultation(data, userId, consultationId) {
+      return data.keys().hasAll(['uid', 'referenceId', 'serviceTitle', 'callbackDay', 'callbackSlot', 'phone', 'message', 'status', 'createdAt'])
+        && data.keys().hasOnly(['uid', 'referenceId', 'serviceTitle', 'callbackDay', 'callbackSlot', 'phone', 'message', 'status', 'createdAt'])
+        && data.uid is string
+        && isValidId(data.uid)
+        && data.uid == userId
+        && data.referenceId is string
+        && data.referenceId.size() >= 3
+        && data.referenceId.size() <= 64
+        && data.referenceId.matches('^[a-zA-Z0-9_\\-]+$')
+        && data.referenceId == consultationId
+        && data.serviceTitle is string
+        && data.serviceTitle.size() >= 2
+        && data.serviceTitle.size() <= 100
+        && data.callbackDay is string
+        && data.callbackDay.size() >= 1
+        && data.callbackDay.size() <= 40
+        && data.callbackSlot is string
+        && data.callbackSlot.size() >= 1
+        && data.callbackSlot.size() <= 60
+        && data.phone is string
+        && data.phone.size() >= 7
+        && data.phone.size() <= 25
+        && data.phone.matches('^[0-9+\\-\\s()]*$')
+        && data.message is string
+        && data.message.size() >= 1
+        && data.message.size() <= 1500
+        && data.status is string
+        && data.status in ['New', 'Contacted', 'Won', 'Lost']
+        && data.createdAt is timestamp;
+    }
+
+    function isValidServiceBookmark(data, userId, serviceId) {
+      return data.keys().hasAll(['uid', 'serviceId', 'serviceTitle', 'category', 'createdAt'])
+        && data.keys().hasOnly(['uid', 'serviceId', 'serviceTitle', 'category', 'createdAt'])
+        && data.uid is string
+        && isValidId(data.uid)
+        && data.uid == userId
+        && data.uid == request.auth.uid
+        && data.serviceId is string
+        && isValidId(data.serviceId)
+        && data.serviceId == serviceId
+        && data.serviceTitle is string
+        && data.serviceTitle.size() >= 2
+        && data.serviceTitle.size() <= 100
+        && data.category is string
+        && data.category.size() >= 2
+        && data.category.size() <= 80
+        && data.createdAt is timestamp;
+    }
+
+    match /users/{userId} {
+      allow get: if isValidId(userId) && (isOwner(userId) || isAdmin());
+      allow list: if false;
+
+      allow create: if isVerifiedUser()
+        && isValidId(userId)
+        && isOwner(userId)
+        && isValidUserProfile(incoming(), userId)
+        && incoming().createdAt == request.time
+        && incoming().updatedAt == request.time;
+
+      allow update: if isVerifiedUser()
+        && isValidId(userId)
+        && isOwner(userId)
+        && isValidUserProfile(incoming(), userId)
+        && incoming().uid == existing().uid
+        && incoming().email == existing().email
+        && incoming().createdAt == existing().createdAt
+        && incoming().updatedAt == request.time
+        && incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'photoURL', 'companyName', 'phone', 'updatedAt']);
+
+      allow delete: if false;
+
+      match /consultations/{consultationId} {
+        allow get: if isValidId(userId)
+          && isValidId(consultationId)
+          && (isOwner(userId) || isAdmin())
+          && hasParentUserDoc(userId);
+
+        allow list: if isVerifiedUser()
+          && (isOwner(userId) || isAdmin())
+          && resource.data.uid == userId;
+
+        allow create: if isVerifiedUser()
+          && isValidId(userId)
+          && isValidId(consultationId)
+          && isOwner(userId)
+          && isValidUserConsultation(incoming(), userId, consultationId)
+          && incoming().uid == request.auth.uid
+          && incoming().status == 'New'
+          && incoming().createdAt == request.time
+          && hasParentUserDoc(userId);
+
+        allow update: if isVerifiedUser()
+          && isValidId(userId)
+          && isValidId(consultationId)
+          && isValidUserConsultation(incoming(), userId, consultationId)
+          && isAdmin()
+          && hasParentUserDoc(userId)
+          && incoming().uid == existing().uid
+          && incoming().referenceId == existing().referenceId
+          && incoming().createdAt == existing().createdAt
+          && incoming().diff(existing()).affectedKeys().hasOnly(['status']);
+
+        allow delete: if false;
+      }
+
+      match /bookmarks/{serviceId} {
+        allow get: if isValidId(userId)
+          && isValidId(serviceId)
+          && isOwner(userId)
+          && hasParentUserDoc(userId);
+
+        allow list: if isVerifiedUser()
+          && isOwner(userId)
+          && resource.data.uid == request.auth.uid;
+
+        allow create: if isVerifiedUser()
+          && isValidId(userId)
+          && isValidId(serviceId)
+          && isOwner(userId)
+          && isValidServiceBookmark(incoming(), userId, serviceId)
+          && incoming().createdAt == request.time
+          && hasParentUserDoc(userId);
+
+        allow update: if false;
+
+        allow delete: if isValidId(userId)
+          && isValidId(serviceId)
+          && isOwner(userId)
+          && hasParentUserDoc(userId);
+      }
+    }
+  }
+}
